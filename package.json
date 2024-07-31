@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://yuguogang.github.io/my-twa",
+  "homepage": "https://yuguogang.github.io/my-twa/dist",
 
   "scripts": {
     "dev": "vite",
