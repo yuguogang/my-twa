@@ -1,0 +1,26 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # 设置触发部署的分支
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install  # 或者使用 yarn
+
+      - name: Build
+        run: npm run build  # 构建项目，生成静态文件
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages  # 部署到的分支
+          folder: dist  # 构建输出的目录
+          clean: true  # 清理 gh-pages 分支上的文件
