@@ -1,0 +1,33 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # 触发部署的分支，根据您的主分支名称进行更改
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # 运行在最新版的 Ubuntu 系统上
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2 # 检出源代码
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2 # 设置 Node.js 环境
+        with:
+          node-version: '20' # 您可以设置为项目所需的 Node.js 版本
+
+      - name: Install dependencies
+        run: npm install # 安装项目依赖
+
+      - name: Build
+        run: npm run build # 构建项目，生成静态文件
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.4 # 使用此动作来部署到 GitHub Pages
+        with:
+          branch: gh-pages # 部署到的分支
+          folder: dist # 构建输出的目录
+          clean: true # 清理 gh-pages 分支上的文件
+          token: ${{ secrets.GITHUB_TOKEN }} # 使用 GitHub 提供的安全令牌
